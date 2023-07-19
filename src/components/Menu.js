@@ -50,7 +50,7 @@ class EditDrinkForm extends Component {
         this.toggleModal();
         this.props.updateDrink({_id: this.props.drink._id, name: this.name.value, description: this.description.value,
                            image: this.image.value, type: this.type.value,
-                           recommended: this.recommended.value}); 
+                           recommended: this.recommended.value, price: this.price.value}); 
         event.preventDefault();
     }
 
@@ -87,7 +87,7 @@ class EditDrinkForm extends Component {
                             <Input type="select" name="typeSelect" id="typeSelect" defaultValue={this.props.drink.type}
                                    innerRef={(input) => this.type = input}>
                               <option value ={"Coffee"}>Coffee</option>
-                              <option value ={"ColdDrink"}>Cold Drink</option>
+                              <option value ={"ColdMeal"}>Cold Meal</option>
                               <option value ={"Other"}>Other</option>
                             </Input>
                         </FormGroup>
@@ -98,6 +98,11 @@ class EditDrinkForm extends Component {
                               <option value ={false}>NO</option>
                               <option value ={true}>YES</option>
                             </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="price">Price</Label>
+                            <Input type="number" min={1000} id="price" name="price" defaultValue={this.props.drink.price}
+                                innerRef={(input) => this.price = input}  />
                         </FormGroup>
                         <Button type="submit" value="submit" color="success">EDIT</Button>
                     </Form>
@@ -129,7 +134,7 @@ class AddDrinkForm extends Component {
         this.toggleModal();
         this.props.postDrink({name: this.name.value, description: this.description.value,
                            image: this.image.value, type: this.type.value,
-                           recommended: this.recommended.value}); 
+                           recommended: this.recommended.value, price:this.price.value}); 
     }
 
     render (){
@@ -137,7 +142,7 @@ class AddDrinkForm extends Component {
             <>
             { (this.props.user.loggedIn && this.props.user.user.isAdmin)?
                 <Button color="success" onClick={this.toggleModal}>
-                    Add Drink
+                    Add Meal
                 </Button>
                 : null
             }
@@ -165,7 +170,7 @@ class AddDrinkForm extends Component {
                             <Input type="select" name="typeSelect" id="typeSelect" 
                                    innerRef={(input) => this.type = input}>
                               <option value ={"Coffee"}>Coffee</option>
-                              <option value ={"ColdDrink"}>Cold Drink</option>
+                              <option value ={"ColdMeal"}>Cold Meal</option>
                               <option value ={"Other"}>Other</option>
                             </Input>
                         </FormGroup>
@@ -176,6 +181,11 @@ class AddDrinkForm extends Component {
                               <option value ={false}>NO</option>
                               <option value ={true}>YES</option>
                             </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="description">Price</Label>
+                            <Input type="number" min={1000} id="price" name="price"
+                                innerRef={(input) => this.price = input}  />
                         </FormGroup>
                         <Button type="submit" value="submit" color="success">ADD DRINK</Button>
                     </Form>
@@ -212,7 +222,7 @@ const Menu = (props) => {
             return null
 		});
 		var coldDrink = props.drinks.drinks.map((drink) => {
-			if (drink.type === "ColdDrink"){
+			if (drink.type === "ColdMeal"){
 				return (
                     <RenderItem drink = {drink} user = {props.user}
                     updateDrink = {props.updateDrink} 

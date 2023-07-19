@@ -9,7 +9,7 @@ function RenderItem ({drink, user, updateDrink, deleteDrink}){
         <div className="col-10 col-md-5 m-1">
         <Link to={`/menu/${drink._id}`}>
     	        <Card>
-    	            <CardImg src={baseUrl+"images/"+drink.image} className ="card-img-top"/>
+    	            <CardImg src={drink.image} className ="card-img-top"/>
     	            <CardBody>
     	                <CardTitle>{drink.name}</CardTitle>
     	            </CardBody>

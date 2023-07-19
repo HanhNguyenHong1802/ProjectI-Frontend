@@ -11,7 +11,7 @@ function RenderItem ({drink}){
 	return(
 		<div className="col-10 col-md-5 m-1">
 	        <Card>
-	            <CardImg src={baseUrl+"images/"+drink.image} className ="card-img-top"/>
+	            <CardImg src={drink.image} className ="card-img-top"/>
 	            <CardBody>
 	                <CardTitle>{drink.name}</CardTitle>
                     <CardText>{drink.description}</CardText>

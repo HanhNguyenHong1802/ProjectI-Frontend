@@ -12,7 +12,7 @@ function Home(props) {
       <div>
         <Row className=" justify-content-center" >
           {/* <Image className="col-10 col-md-10 m-1" src= {baseUrl+"images/gacuon.jpg"} fluid/> */}
-          <Carousel>
+          <Carousel autoPlay infiniteLoop>
             <div>
               <Image className="col-10 col-md-10 m-1" src= {baseUrl+"images/gacuon.jpg"} />
             </div>

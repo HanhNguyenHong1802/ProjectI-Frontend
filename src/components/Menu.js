@@ -19,7 +19,7 @@ function RenderItem ({drink, user, updateDrink, deleteDrink}){
             <>
             <EditDrinkForm drink={drink} user={user}  updateDrink={updateDrink}/>
             <Button color="danger" size="sm" onClick={() => deleteDrink(drink)}>
-                DELETE DRINK
+                DELETE MEAL
             </Button>
             </>
             : null
@@ -59,12 +59,12 @@ class EditDrinkForm extends Component {
             <>
             { (this.props.user.loggedIn && this.props.user.user.isAdmin)?
                 <Button color="success" size="sm" onClick={this.toggleModal}>
-                    EDIT DRINK
+                    EDIT MEAL
                 </Button>
                 : null
             }
             <Modal isOpen={this.state.modalIsOpen} toggle={this.toggleModal}>
-                <ModalHeader toggle={this.toggleModal}>EDIT DRINK</ModalHeader>
+                <ModalHeader toggle={this.toggleModal}>EDIT MEAL</ModalHeader>
                 <ModalBody>
                     <Form onSubmit={this.handleUpdateDrink}>
                         <FormGroup>

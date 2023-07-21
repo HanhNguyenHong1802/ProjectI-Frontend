@@ -72,11 +72,11 @@ class Header extends Component {
                                     Home
                                 </NavLink>
                             </NavItem>
-                             {/* <NavItem>
+                             <NavItem>
                                 <NavLink className="nav-link" to='/aboutus'>
                                     About Us
                                 </NavLink>
-                            </NavItem> */}
+                            </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link"  to='/menu'>
                                      Menu

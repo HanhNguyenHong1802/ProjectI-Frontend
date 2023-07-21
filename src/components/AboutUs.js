@@ -154,7 +154,7 @@ const AboutUsInfo = (props) => {
                     A Place to Chat with Friends
             </div >  
             <div style = {{width:'40%'}}>
-                <img src={baseUrl +"images/combo_nhom.jpeg"} className = "aboutus-img" alt="aboutus4"/>
+                <img src={baseUrl +"images/combo_nhom.jpg"} className = "aboutus-img" alt="aboutus4"/>
             </div>          
         </div> 
         <div style={{border: '1px solid #C9C9C9'}} />

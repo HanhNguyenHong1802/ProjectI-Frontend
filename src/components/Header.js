@@ -65,6 +65,7 @@ class Header extends Component {
             <React.Fragment>
                 <Navbar light expand="md">
                     <div className="container">
+                    <div onClick={this.toggleNav}>Navigation</div>
                         <Collapse isOpen={this.state.navIsOpen} navbar>
                             <Nav navbar>
                             <NavItem>

@@ -13,6 +13,7 @@ import Home from './Home';
 import Menu from './Menu';
 import MenuItem from './MenuItem';
 import AboutUs from './AboutUs';
+import QRCodeGen from './QRCode';
 
 
 
@@ -94,6 +95,7 @@ class Main extends Component {
 	      <Route exact path="/managefeedbacks" component={() => <ManageFeedbacks feedbacks = {this.props.feedbacks} 
 	                                                                     deleteFeedback = {this.props.deleteFeedback}
 	                                                                     />} />
+        <Route exact path="/manageqr" component={<QRCodeGen/>}/>
 	      <Redirect to="/home" />
 	    </Switch>
 	  </div>

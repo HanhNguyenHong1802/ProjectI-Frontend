@@ -124,7 +124,7 @@ const AboutUsInfo = (props) => {
         <br/><br/>
         <div style = {{width:'100%', display: 'flex'}}>
             <div style = {{width:'40%'}}>
-                <img src={baseUrl +"images/about_us_1.jpeg"} className= "aboutus-img" alt="aboutus1"/>
+                <img src={baseUrl +"images/COM.jpg"} className= "aboutus-img" alt="aboutus1"/>
             </div>
             <div className = "aboutus-text">          
                     A Place to Rest
@@ -136,13 +136,13 @@ const AboutUsInfo = (props) => {
                     A Place Offering High-quality Coffee
             </div >  
             <div style = {{width:'40%'}}>
-                <img src={baseUrl +"images/about_us_2.jpeg"} className = "aboutus-img" alt="aboutus2"/>
+                <img src={baseUrl +"images/GA.jpg"} className = "aboutus-img" alt="aboutus2"/>
             </div>          
         </div> 
         <div style={{border: '1px solid #C9C9C9'}} />
         <div style = {{width:'100%', display: 'flex'}}>
             <div style = {{width:'40%'}}>
-                <img src={baseUrl +"images/about_us_3.jpeg"} className = "aboutus-img" alt="aboutus3"/>
+                <img src={baseUrl +"images/gacuon.jpg"} className = "aboutus-img" alt="aboutus3"/>
             </div> 
             <div className = "aboutus-text">          
                     A Place to Play with Cats
@@ -154,7 +154,7 @@ const AboutUsInfo = (props) => {
                     A Place to Chat with Friends
             </div >  
             <div style = {{width:'40%'}}>
-                <img src={baseUrl +"images/about_us_4.jpeg"} className = "aboutus-img" alt="aboutus4"/>
+                <img src={baseUrl +"images/combo_nhom.jpeg"} className = "aboutus-img" alt="aboutus4"/>
             </div>          
         </div> 
         <div style={{border: '1px solid #C9C9C9'}} />

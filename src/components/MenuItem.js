@@ -37,6 +37,9 @@ class OrderNowForm extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.handleOrderNow = this.handleOrderNow.bind(this);
   }
+  componentDidMount () {
+    this.props.getOrder()
+  }
   onSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state);
@@ -63,7 +66,7 @@ class OrderNowForm extends Component {
 
   handleOrderNow(event) {
     this.toggleModal();
-    this.props.postOrder({
+    this.props.postOrderModal({
       content: this.content.value, quantity: this.quantity.value,
       drink: this.props.drink._id
     });
@@ -86,6 +89,15 @@ class OrderNowForm extends Component {
   }
 
   message = (event) => {
+    this.props.postOrder(
+      {
+        customerId: this.props.user._id,
+        table: Math.floor(Math.random() * 10),
+        orders: [...this.props.orders, this.props.drink],
+        totalAmount: this.state.count,
+        paid: false
+      }
+    )
     alert('Just a minute, we will make it right now');
   }
   render() {
@@ -190,7 +202,7 @@ class AddCommentForm extends Component {
   }
 }
 
-function RenderComments({ drink, comments, postComment, user, deleteComment, postOrder }) {
+function RenderComments({ drink, comments, postComment, user, deleteComment, postOrder, getOrder }) {
   return (
 
     <div className="col-10 col-md-5 m-1">
@@ -222,6 +234,7 @@ function RenderComments({ drink, comments, postComment, user, deleteComment, pos
         postComment={postComment}
         user={user} />
       <OrderNowForm drink={drink}
+        getOrder={getOrder}
         postOrder={postOrder}
         user={user}
 
@@ -234,7 +247,6 @@ function RenderComments({ drink, comments, postComment, user, deleteComment, pos
 
 
 const MenuItem = (props) => {
-
   if (props.drink) {
     return (
       <>
@@ -250,8 +262,12 @@ const MenuItem = (props) => {
             <RenderComments drink={props.drink}
               comments={props.comments}
               postComment={props.postComment}
-              postOrder={props.postOrder}
+              postOrderModal={props.postOrderModal}
               user={props.user}
+              orders={this.props.orders}
+              postOrder={this.props.postOrder}
+              getOrder={this.props.getOrder}
+              updateOrder={this.props.updateOrder}
               deleteComment={props.deleteComment} />
           </Row>
         </div>

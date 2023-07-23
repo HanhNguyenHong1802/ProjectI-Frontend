@@ -127,13 +127,11 @@ const AboutUsInfo = (props) => {
                 <img src={baseUrl +"images/COM.jpg"} className= "aboutus-img" alt="aboutus1"/>
             </div>
             <div className = "aboutus-text">          
-                    A Place to Rest
             </div >                      
         </div> 
         <div style={{border: '1px solid #C9C9C9'}} />
         <div style = {{width:'100%', display: 'flex'}}>
             <div className = "aboutus-text">          
-                    A Place Offering High-quality Coffee
             </div >  
             <div style = {{width:'40%'}}>
                 <img src={baseUrl +"images/GA.jpg"} className = "aboutus-img" alt="aboutus2"/>
@@ -145,27 +143,25 @@ const AboutUsInfo = (props) => {
                 <img src={baseUrl +"images/gacuon.jpg"} className = "aboutus-img" alt="aboutus3"/>
             </div> 
             <div className = "aboutus-text">          
-                    A Place to Play with Cats
             </div >           
         </div> 
         <div style={{border: '1px solid #C9C9C9'}} />
         <div style = {{width:'100%', display: 'flex'}}>
             <div className = "aboutus-text">          
-                    A Place to Chat with Friends
             </div >  
             <div style = {{width:'40%'}}>
                 <img src={baseUrl +"images/combo_nhom.jpg"} className = "aboutus-img" alt="aboutus4"/>
             </div>          
         </div> 
         <div style={{border: '1px solid #C9C9C9'}} />
-        <div>
+        {/* <div>
             <Container  style={{width:'85%'}}>
             <Player
               playsInline
               src={baseUrl + "/video/coffee_video.mp4"}
             />
             </Container>
-        </div>
+        </div> */}
         </>       
      );
 }
@@ -184,15 +180,15 @@ const AboutUs = (props) => {
                 <div>
                   <AboutUsInfo/>
                 </div>
-                <div >
+                {/* <div >
                     <br/><br/><br/><br/>
                     <h2> Our Staff </h2>
                     {members_list}
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <AddMemberForm user = {props.user}
                               postMember= {props.postMember}/>
-                </div>
+                </div> */}
             </Container >
             </>
     );

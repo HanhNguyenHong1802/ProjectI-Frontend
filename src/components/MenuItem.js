@@ -179,7 +179,7 @@ class AddCommentForm extends Component {
                 <Input type="textarea" id="content" name="content"
                   innerRef={(input) => this.content = input} />
               </FormGroup>
-              <Button type="submit" value="submit" color="success">ADD DRINK</Button>
+              <Button type="submit" value="submit" color="success">ADD Meal</Button>
             </Form>
           </ModalBody>
         </Modal>

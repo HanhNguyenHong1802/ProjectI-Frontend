@@ -54,6 +54,7 @@ class Order extends Component {
                 item={item}
                 amount={order.totalAmount}
                 user={user.user}
+                table={order.table}
               />
             );
           })}

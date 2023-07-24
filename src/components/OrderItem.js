@@ -63,7 +63,7 @@ class OrderItem extends Component {
     } catch (err) {}
   };
   render() {
-    const { item } = this.props;
+    const { item, table } = this.props;
     const { amount } = this.props;
     return (
       <div className=" col-10 col-md-5 m-1" hidden={this.state.isPaid}>
@@ -73,6 +73,7 @@ class OrderItem extends Component {
             <CardTitle>{item.name}</CardTitle>
             <CardText>{item.description}</CardText>
             <CardText>{item.price * this.state.count} VND</CardText>
+            <CardText>Bàn số :{table}</CardText>
             <FormGroup>
               <button
                 onClick={(e) => this.increment(e, amount)}

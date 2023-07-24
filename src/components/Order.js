@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardBody,
-  CardImg,
-  CardText,
-  CardTitle,
-  Button,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import { baseUrl } from "../shared/baseUrl";
+import OrderItem from "./OrderItem";
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -21,13 +15,10 @@ class Order extends Component {
   }
   fetchOrders = async () => {
     try {
-      var response = await fetch(
-        baseUrl + "orders?author=" + this.props.user.user.username,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      var response = await fetch(baseUrl + "orders", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!response.ok) {
         var err = new Error(
@@ -40,37 +31,34 @@ class Order extends Component {
       response = await response.json();
       console.log(response);
       this.setState((prevState) => ({
+        // items: response.filter(
+        //   (item) => item.author === this.props.user.user.username && !item.paid
+        // ),
         items: response,
       }));
     } catch (err) {}
   };
-  handleOrder = async (event) => {};
+
   render() {
     const { items } = this.state;
+    const { user } = this.props;
     return (
       <div className="align-items-center">
         <div className="d-flex flex-wrap">
           {items.map((order) => {
             const item = order.orders[0];
             return (
-              <div className=" col-10 col-md-5 m-1">
-                <Card>
-                  <CardImg src={item.image} className="card-img-top" />
-                  <CardBody>
-                    <CardTitle>{item.name}</CardTitle>
-                    <CardText>{item.description}</CardText>
-                    <CardText>{item.price * order.totalAmount} VND</CardText>
-                  </CardBody>
-                </Card>
-              </div>
+              <OrderItem
+                item={item}
+                amount={order.totalAmount}
+                user={user.user}
+              />
             );
           })}
         </div>
-        <Button color="success" onClick={() => this.handleOrder()}>
-          Order
-        </Button>
       </div>
     );
   }
 }
+
 export default Order;

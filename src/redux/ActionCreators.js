@@ -1,26 +1,26 @@
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from "./ActionTypes";
 
-import { baseUrl } from '../shared/baseUrl';
+import { baseUrl } from "../shared/baseUrl";
 
 export const requestLogin = (user) => {
   return {
     type: ActionTypes.LOGIN_REQUEST,
-    user
-  }
+    user,
+  };
 };
 
 export const loginSuccess = (token) => {
   return {
     type: ActionTypes.LOGIN_SUCCESS,
-    token
-  }
+    token,
+  };
 };
 
 export const loginFailure = (errMess) => {
   return {
     type: ActionTypes.LOGIN_FAILURE,
-    errMess
-  }
+    errMess,
+  };
 };
 
 export const login = (user) => {
@@ -28,14 +28,14 @@ export const login = (user) => {
     dispatch(requestLogin(user));
     console.log(user);
     try {
-      var response = await fetch(baseUrl + 'users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+      var response = await fetch(baseUrl + "users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status);
+        var err = new Error("Error " + response.status);
         err.response = response;
         throw err;
       }
@@ -43,39 +43,36 @@ export const login = (user) => {
       response = await response.json();
       if (response.success) {
         user.isAdmin = response.isAdmin;
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("user", JSON.stringify(user));
         dispatch(loginSuccess(response.token));
         if (user.isAdmin) {
           dispatch(getUsers());
           dispatch(getFeedbacks());
         }
-      }
-      else {
-        var err = new Error('Error ' + response.status);
+      } else {
+        var err = new Error("Error " + response.status);
         err.response = response;
         throw err;
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(loginFailure(err.message));
     }
-  }
+  };
 };
 
 export const requestSignup = (user) => {
   return {
     type: ActionTypes.SIGNUP_REQUEST,
-    user
-  }
+    user,
+  };
 };
 
 export const signupFailure = (errMess) => {
   return {
     type: ActionTypes.SIGNUP_FAILURE,
-    errMess
-  }
+    errMess,
+  };
 };
 
 export const signup = (user) => {
@@ -83,14 +80,16 @@ export const signup = (user) => {
     dispatch(requestSignup(user));
     console.log(user);
     try {
-      var response = await fetch(baseUrl + 'users/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+      var response = await fetch(baseUrl + "users/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -98,51 +97,50 @@ export const signup = (user) => {
       if (response.success) {
         dispatch(login({ username: user.username, password: user.password }));
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(signupFailure(err.message));
     }
-  }
+  };
 };
 
 export const requestLogout = () => {
   return {
-    type: ActionTypes.LOGOUT_REQUEST
-  }
+    type: ActionTypes.LOGOUT_REQUEST,
+  };
 };
 
 export const logoutSuccess = () => {
   return {
-    type: ActionTypes.LOGOUT_SUCCESS
-  }
+    type: ActionTypes.LOGOUT_SUCCESS,
+  };
 };
 
 export const logout = () => (dispatch) => {
   dispatch(requestLogout());
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
   dispatch(getUsers());
   dispatch(getFeedbacks());
   dispatch(logoutSuccess());
-}
+};
 
 export const getUsers = () => {
   return async (dispatch) => {
     dispatch(usersLoading());
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-
-      var response = await fetch(baseUrl + 'users/', {
-        method: 'GET',
+      var response = await fetch(baseUrl + "users/", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -150,42 +148,42 @@ export const getUsers = () => {
       response = await response.json();
       console.log(response);
       dispatch(addUsers(response));
-    }
-    catch (err) {
+    } catch (err) {
       usersFailure();
     }
-  }
+  };
 };
 
 export const addUsers = (users) => ({
   type: ActionTypes.ADD_USERS,
-  users
+  users,
 });
 
 export const usersLoading = () => ({
-  type: ActionTypes.USERS_LOADING
+  type: ActionTypes.USERS_LOADING,
 });
 
 export const usersFailure = (errMess) => ({
   type: ActionTypes.USERS_FAILURE,
-  errMess
+  errMess,
 });
 
 export const deleteUser = (user) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-
-      var response = await fetch(baseUrl + 'users/' + user._id, {
-        method: 'DELETE',
+      var response = await fetch(baseUrl + "users/" + user._id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -193,30 +191,30 @@ export const deleteUser = (user) => {
       response = await response.json();
       console.log(response);
       dispatch(getUsers());
-
-    }
-    catch (err) {
+    } catch (err) {
       usersFailure();
     }
-  }
+  };
 };
 
 export const postUser = (user) => {
   return async (dispatch) => {
     console.log("!!!!!!!!!!!!!!!!!!!!!!");
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'users/', {
-        method: 'POST',
+      var response = await fetch(baseUrl + "users/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -224,26 +222,25 @@ export const postUser = (user) => {
       if (response.success) {
         dispatch(getUsers());
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(signupFailure(err.message));
     }
-  }
+  };
 };
 
 export const getDrinks = () => {
   return async (dispatch) => {
     dispatch(drinksLoading());
     try {
-
-      var response = await fetch(baseUrl + 'menu/', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+      var response = await fetch(baseUrl + "menu/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -251,47 +248,48 @@ export const getDrinks = () => {
       response = await response.json();
       console.log(response);
       dispatch(addDrinks(response));
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(drinksFailure());
     }
-  }
-}
+  };
+};
 
 export const addDrinks = (drinks) => ({
   type: ActionTypes.ADD_DRINKS,
-  drinks
+  drinks,
 });
 
 export const addNewDrink = (drink) => ({
   type: ActionTypes.ADD_NEW_DRINK,
-  drink
+  drink,
 });
 
 export const drinksLoading = () => ({
-  type: ActionTypes.DRINKS_LOADING
+  type: ActionTypes.DRINKS_LOADING,
 });
 
 export const drinksFailure = (errMess) => ({
   type: ActionTypes.DRINKS_FAILURE,
-  errMess
+  errMess,
 });
 
 export const postDrink = (drink) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'menu/', {
-        method: 'POST',
+      var response = await fetch(baseUrl + "menu/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(drink)
+        body: JSON.stringify(drink),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -300,28 +298,28 @@ export const postDrink = (drink) => {
         console.log(response);
         dispatch(addNewDrink(drink));
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(drinksFailure(err.message));
     }
-  }
+  };
 };
 
 export const deleteDrink = (drink) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'menu/' + drink._id, {
-        method: 'DELETE',
+      var response = await fetch(baseUrl + "menu/" + drink._id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -329,55 +327,54 @@ export const deleteDrink = (drink) => {
       response = await response.json();
       console.log(response);
       dispatch(getDrinks());
-
-    }
-    catch (err) {
+    } catch (err) {
       drinksFailure();
     }
-  }
+  };
 };
 
 export const updateDrink = (drink) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'menu/' + drink._id, {
-        method: 'PUT',
+      var response = await fetch(baseUrl + "menu/" + drink._id, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(drink)
+        body: JSON.stringify(drink),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
 
       response = await response.json();
       dispatch(getDrinks());
-
-    }
-    catch (err) {
+    } catch (err) {
       drinksFailure();
     }
-  }
+  };
 };
 
 export const getComments = () => {
   return async (dispatch) => {
     dispatch(commentsLoading());
     try {
-
-      var response = await fetch(baseUrl + 'comments/', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+      var response = await fetch(baseUrl + "comments/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -385,47 +382,48 @@ export const getComments = () => {
       response = await response.json();
       console.log(response);
       dispatch(addComments(response));
-    }
-    catch (err) {
+    } catch (err) {
       commentsFailure();
     }
-  }
+  };
 };
 
 export const addComments = (comments) => ({
   type: ActionTypes.ADD_COMMENTS,
-  comments
+  comments,
 });
 
 export const addNewComment = (comment) => ({
   type: ActionTypes.ADD_NEW_COMMENT,
-  comment
+  comment,
 });
 
 export const commentsLoading = () => ({
-  type: ActionTypes.COMMENTS_LOADING
+  type: ActionTypes.COMMENTS_LOADING,
 });
 
 export const commentsFailure = (errMess) => ({
   type: ActionTypes.COMMENTS_FAILURE,
-  errMess
+  errMess,
 });
 
 export const postComment = (comment) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'comments/', {
-        method: 'POST',
+      var response = await fetch(baseUrl + "comments/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(comment)
+        body: JSON.stringify(comment),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -434,28 +432,28 @@ export const postComment = (comment) => {
         console.log(response);
         dispatch(addNewComment(comment));
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(commentsFailure(err.message));
     }
-  }
+  };
 };
 
 export const deleteComment = (comment) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'comments/' + comment._id, {
-        method: 'DELETE',
+      var response = await fetch(baseUrl + "comments/" + comment._id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -463,31 +461,31 @@ export const deleteComment = (comment) => {
       response = await response.json();
       console.log(response);
       dispatch(getComments());
-
-    }
-    catch (err) {
+    } catch (err) {
       commentsFailure();
     }
-  }
+  };
 };
 
 export const postFeedback = (feedback) => {
   return async (dispatch) => {
-    console.log("eeeeeeeeeeeeeeeeeee")
-    console.log(feedback)
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    console.log("eeeeeeeeeeeeeeeeeee");
+    console.log(feedback);
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'feedbacks/', {
-        method: 'POST',
+      var response = await fetch(baseUrl + "feedbacks/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(feedback)
+        body: JSON.stringify(feedback),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -496,30 +494,29 @@ export const postFeedback = (feedback) => {
         console.log("??????????????????????????????????????????");
         console.log(response);
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(drinksFailure(err.message));
     }
-  }
+  };
 };
 
 export const getFeedbacks = () => {
   return async (dispatch) => {
     dispatch(feedbacksLoading());
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-
-      var response = await fetch(baseUrl + 'feedbacks/', {
-        method: 'GET',
+      var response = await fetch(baseUrl + "feedbacks/", {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -527,41 +524,42 @@ export const getFeedbacks = () => {
       response = await response.json();
       console.log(response);
       dispatch(addFeedbacks(response));
-    }
-    catch (err) {
+    } catch (err) {
       feedbacksFailure();
     }
-  }
+  };
 };
 
 export const addFeedbacks = (feedbacks) => ({
   type: ActionTypes.ADD_FEEDBACKS,
-  feedbacks
+  feedbacks,
 });
 
 export const feedbacksLoading = () => ({
-  type: ActionTypes.FEEDBACKS_LOADING
+  type: ActionTypes.FEEDBACKS_LOADING,
 });
 
 export const feedbacksFailure = (errMess) => ({
   type: ActionTypes.FEEDBACKS_FAILURE,
-  errMess
+  errMess,
 });
 
 export const deleteFeedback = (feedback) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'feedbacks/' + feedback._id, {
-        method: 'DELETE',
+      var response = await fetch(baseUrl + "feedbacks/" + feedback._id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -569,45 +567,44 @@ export const deleteFeedback = (feedback) => {
       response = await response.json();
       console.log(response);
       dispatch(getFeedbacks());
-
-    }
-    catch (err) {
+    } catch (err) {
       feedbacksFailure();
     }
-  }
+  };
 };
 
 export const addMembers = (members) => ({
   type: ActionTypes.ADD_MEMBERS,
-  members
+  members,
 });
 
 export const membersLoading = () => ({
-  type: ActionTypes.MEMBERS_LOADING
+  type: ActionTypes.MEMBERS_LOADING,
 });
 
 export const membersFailure = (errMess) => ({
   type: ActionTypes.MEMBERS_FAILURE,
-  errMess
+  errMess,
 });
 
 export const addNewMember = (member) => ({
   type: ActionTypes.ADD_NEW_MEMBER,
-  member
+  member,
 });
 
 export const getMembers = () => {
   return async (dispatch) => {
     dispatch(membersLoading());
     try {
-
-      var response = await fetch(baseUrl + 'members/', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+      var response = await fetch(baseUrl + "members/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -615,28 +612,29 @@ export const getMembers = () => {
       response = await response.json();
       console.log(response);
       dispatch(addMembers(response));
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(membersFailure());
     }
-  }
+  };
 };
 
 export const postMember = (member) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'members/', {
-        method: 'POST',
+      var response = await fetch(baseUrl + "members/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(member)
+        body: JSON.stringify(member),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -645,28 +643,28 @@ export const postMember = (member) => {
         console.log(response);
         dispatch(addNewMember(member));
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(membersFailure(err.message));
     }
-  }
+  };
 };
 
 export const deleteMember = (member) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'members/' + member._id, {
-        method: 'DELETE',
+      var response = await fetch(baseUrl + "members/" + member._id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -674,25 +672,24 @@ export const deleteMember = (member) => {
       response = await response.json();
       console.log(response);
       dispatch(getMembers());
-
-    }
-    catch (err) {
+    } catch (err) {
       membersFailure();
     }
-  }
+  };
 };
 export const getOrders = () => {
   return async (dispatch) => {
     dispatch(ordersLoading());
     try {
-
-      var response = await fetch(baseUrl + 'order/', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+      var response = await fetch(baseUrl + "orders/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -700,47 +697,48 @@ export const getOrders = () => {
       response = await response.json();
       console.log(response);
       dispatch(addOrders(response));
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(ordersFailure());
     }
-  }
-}
+  };
+};
 
 export const addOrders = (orders) => ({
   type: ActionTypes.ADD_ORDERS,
-  orders
+  orders,
 });
 
 export const addNewOrder = (order) => ({
   type: ActionTypes.ADD_NEW_ORDER,
-  order
+  order,
 });
 
 export const ordersLoading = () => ({
-  type: ActionTypes.ORDERS_LOADING
+  type: ActionTypes.ORDERS_LOADING,
 });
 
 export const ordersFailure = (errMess) => ({
   type: ActionTypes.ORDERS_FAILURE,
-  errMess
+  errMess,
 });
 
 export const postOrder = (order) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'order/', {
-        method: 'POST',
+      var response = await fetch(baseUrl + "orders/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(order)
+        body: JSON.stringify(order),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -749,28 +747,28 @@ export const postOrder = (order) => {
         console.log(response);
         dispatch(addNewOrder(order));
       }
-
-    }
-    catch (err) {
+    } catch (err) {
       dispatch(ordersFailure(err.message));
     }
-  }
+  };
 };
 
 export const deleteOrder = (order) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'order/' + order._id, {
-        method: 'DELETE',
+      var response = await fetch(baseUrl + "orders/" + order._id, {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
@@ -778,39 +776,37 @@ export const deleteOrder = (order) => {
       response = await response.json();
       console.log(response);
       dispatch(getOrders());
-
-    }
-    catch (err) {
+    } catch (err) {
       ordersFailure();
     }
-  }
+  };
 };
 
 export const updateOrder = (order) => {
   return async (dispatch) => {
-    var bearer = 'Bearer ' + localStorage.getItem('token');
+    var bearer = "Bearer " + localStorage.getItem("token");
     try {
-      var response = await fetch(baseUrl + 'order/' + order._id, {
-        method: 'PUT',
+      var response = await fetch(baseUrl + "orders/" + order._id, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': bearer
+          "Content-Type": "application/json",
+          Authorization: bearer,
         },
-        body: JSON.stringify(order)
+        body: JSON.stringify(order),
       });
 
       if (!response.ok) {
-        var err = new Error('Error ' + response.status + ': ' + response.statusText);
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
         err.response = response;
         throw err;
       }
 
       response = await response.json();
       dispatch(getOrders());
-
-    }
-    catch (err) {
+    } catch (err) {
       ordersFailure();
     }
-  }
+  };
 };

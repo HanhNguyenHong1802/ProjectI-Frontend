@@ -30,7 +30,7 @@ function Home(props) {
               <Card>
                 <CardImg src={baseUrl + "images/GA.jpg"} className="card-img-top" />
                 <CardBody>
-                  <CardTitle>{"Dine In"}</CardTitle>
+                  <CardTitle>{"Combo 1 người"}</CardTitle>
                 </CardBody>
               </Card>
             </Link>
@@ -40,7 +40,7 @@ function Home(props) {
               <Card>
                 <CardImg src={baseUrl + "images/combo_1_nguoi.jpg"} className="card-img-top" />
                 <CardBody>
-                  <CardTitle>{"Take Out"}</CardTitle>
+                  <CardTitle>{"Thức ăn nhẹ"}</CardTitle>
                 </CardBody>
               </Card>
             </Link>
@@ -50,7 +50,7 @@ function Home(props) {
               <Card>
                 <CardImg src={baseUrl + "images/COM.jpg"} className="card-img-top" />
                 <CardBody>
-                  <CardTitle>{"Recommended"}</CardTitle>
+                  <CardTitle>{"Gà rán - Gà quay"}</CardTitle>
                 </CardBody>
               </Card>
             </Link>

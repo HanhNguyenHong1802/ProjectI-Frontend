@@ -83,15 +83,9 @@ const ContactInfo = (props) => {
         <>
         <br/><br/>
         <h4> Contact Info </h4>
-        <p> Address: Unit #2, 9 YangGuangLvYuan, ZhongHe Road </p>
-        <p> Tel: 189970917**  &nbsp;  183018315** </p>
-        <p> Hours: Sunday:    11:30–22:30 </p>
-        <p> &emsp;&emsp; Monday:   11:30–22:30</p>
-        <p> &emsp;&emsp; Tuesday: Closed </p>
-        <p> &emsp;&emsp; Wednesday:   11:30–22:30 </p>
-        <p> &emsp;&emsp; Thursday:    11:30–22:30 </p>
-        <p> &emsp;&emsp; Friday:  11:30–22:30 </p>
-        <p> &emsp;&emsp; Saturday:    11:30–22:30 </p>
+        <p> Address: Số 3 Lê Trọng Tấn, Định Công, Thanh Xuân, Hà Nội </p>
+        <p> Tel: 1234567890  &nbsp;  68686868** </p>
+        <p> Hours: Everyday from 10:30 to 22:30 </p>
         </>        
      );
 }

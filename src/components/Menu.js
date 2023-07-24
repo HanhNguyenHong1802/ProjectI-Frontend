@@ -86,9 +86,9 @@ class EditDrinkForm extends Component {
                           <Label for="typeSelect">Type</Label>
                             <Input type="select" name="typeSelect" id="typeSelect" defaultValue={this.props.drink.type}
                                    innerRef={(input) => this.type = input}>
-                              <option value ={"Coffee"}>Coffee</option>
-                              <option value ={"ColdMeal"}>Cold Meal</option>
-                              <option value ={"Other"}>Other</option>
+                              <option value ={"Coffee"}>Combo 1 người</option>
+                              <option value ={"ColdMeal"}>Thức ăn nhẹ</option>
+                              <option value ={"Other"}>Gà rán - Gà quay</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -147,7 +147,7 @@ class AddDrinkForm extends Component {
                 : null
             }
             <Modal isOpen={this.state.modalIsOpen} toggle={this.toggleModal}>
-                <ModalHeader toggle={this.toggleModal}>ADD DRINK</ModalHeader>
+                <ModalHeader toggle={this.toggleModal}>ADD Meal</ModalHeader>
                 <ModalBody>
                     <Form onSubmit={this.handleAddDrink}>
                         <FormGroup>
@@ -169,9 +169,9 @@ class AddDrinkForm extends Component {
                           <Label for="typeSelect">Type</Label>
                             <Input type="select" name="typeSelect" id="typeSelect" 
                                    innerRef={(input) => this.type = input}>
-                              <option value ={"Coffee"}>Coffee</option>
-                              <option value ={"ColdMeal"}>Cold Meal</option>
-                              <option value ={"Other"}>Other</option>
+                              <option value ={"Coffee"}>Combo 1 người</option>
+                              <option value ={"ColdMeal"}>Thức ăn nhẹ</option>
+                              <option value ={"Other"}>Gà rán - Gà quay</option>
                             </Input>
                         </FormGroup>
                         <FormGroup>
@@ -187,7 +187,7 @@ class AddDrinkForm extends Component {
                             <Input type="number" min={1000} id="price" name="price"
                                 innerRef={(input) => this.price = input}  />
                         </FormGroup>
-                        <Button type="submit" value="submit" color="success">ADD DRINK</Button>
+                        <Button type="submit" value="submit" color="success">ADD Meal</Button>
                     </Form>
                 </ModalBody>
             </Modal>
@@ -254,19 +254,19 @@ const Menu = (props) => {
 	                {recommended}
 	            </Row>
 	            <Row className=" justify-content-center" >
-	                <h5>Coffee</h5>
+	                <h5>Combo 1 người</h5>
 	            </Row>
 	            <Row className="m-1 justify-content-center" >
 	                {coffee}
 	            </Row>
 	            <Row className=" justify-content-center" >
-	                <h5>Cold Drinks</h5>
+	                <h5>Thức ăn nhẹ</h5>
 	            </Row>
 	            <Row className="m-1 justify-content-center" >
 	                {coldDrink}
 	            </Row>
 	            <Row className=" justify-content-center" >
-	                <h5>Others</h5>
+	                <h5>Gà rán - Gà quay</h5>
 	            </Row>
 	            <Row className="m-1 justify-content-center" >
 	                {Other}

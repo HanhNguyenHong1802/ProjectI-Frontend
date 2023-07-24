@@ -96,9 +96,8 @@ class OrderNowForm extends Component {
 
   message = async (event) => {
     event.preventDefault();
-    console.log(this.props.user.user);
     var order = {
-      author: localStorage.getItem("user").username,
+      author: localStorage.getItem("userid"),
       table: localStorage.getItem("table"),
       orders: this.props.drink,
       totalAmount: this.state.count,

@@ -29,12 +29,16 @@ class Order extends Component {
       }
 
       response = await response.json();
-      console.log(response);
+      console.log(
+        response[0].author._id.toString,
+        localStorage.getItem("userid")
+      );
+      let tmp = JSON.parse(localStorage.getItem("user"));
       this.setState((prevState) => ({
-        // items: response.filter(
-        //   (item) => item.author === this.props.user.user.username && !item.paid
-        // ),
-        items: response,
+        items: response.filter(
+          (item) => item?.author?.username === tmp?.username && !item.paid
+        ),
+        // items: response,
       }));
     } catch (err) {}
   };
@@ -43,7 +47,6 @@ class Order extends Component {
   // }
   render() {
     const { items } = this.state;
-    const { user } = this.props;
     return (
       <div className="align-items-center">
         <div className="d-flex flex-wrap">
@@ -53,8 +56,8 @@ class Order extends Component {
               <OrderItem
                 item={item}
                 amount={order.totalAmount}
-                user={user.user}
                 table={order.table}
+                id={order._id}
               />
             );
           })}

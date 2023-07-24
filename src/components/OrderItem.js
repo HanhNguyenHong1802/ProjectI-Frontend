@@ -34,15 +34,16 @@ class OrderItem extends Component {
   handleOrder = async (event) => {
     event.preventDefault();
     var order = {
-      author: this.props.user.username,
+      author: localStorage.getItem("userid"),
       table: this.props.table,
       orders: this.props.drink,
       totalAmount: this.state.count,
       paid: true,
     };
     var bearer = "Bearer " + localStorage.getItem("token");
+
     try {
-      var response = await fetch(baseUrl + "orders/" + this.props._id, {
+      var response = await fetch(baseUrl + "orders/" + this.props.id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -45,6 +45,7 @@ export const login = (user) => {
         user.isAdmin = response.isAdmin;
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("userid", JSON.stringify(response._id));
         dispatch(loginSuccess(response.token));
         if (user.isAdmin) {
           dispatch(getUsers());

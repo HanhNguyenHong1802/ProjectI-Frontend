@@ -117,7 +117,7 @@ class Main extends Component {
           signup={this.props.signup}
         />
         <Switch>
-          <Route path="/home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route
             exact
             path="/menu"
@@ -185,7 +185,7 @@ class Main extends Component {
               />
             )}
           />
-          <Redirect to="/home" />
+          <Redirect to="/" />
         </Switch>
       </div>
     );

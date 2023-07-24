@@ -38,7 +38,9 @@ class Order extends Component {
       }));
     } catch (err) {}
   };
+  // deleteOrders = async () => {
 
+  // }
   render() {
     const { items } = this.state;
     const { user } = this.props;

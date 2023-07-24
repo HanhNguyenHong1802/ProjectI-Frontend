@@ -61,6 +61,8 @@ class Header extends Component {
 
   handleLogout(event) {
     this.props.logout();
+    localStorage.removeItem("token");
+    localStorage.removeItem("table");
     event.preventDefault();
   }
 
@@ -86,7 +88,7 @@ class Header extends Component {
             <Collapse isOpen={this.state.navIsOpen} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink className="nav-link" to="/home">
+                  <NavLink className="nav-link" to="/ßß">
                     Home
                   </NavLink>
                 </NavItem>

@@ -98,8 +98,8 @@ class OrderNowForm extends Component {
     event.preventDefault();
     console.log(this.props.user.user);
     var order = {
-      author: this.props.user.user.username,
-      table: Math.floor(Math.random() * 10),
+      author: localStorage.getItem("user").username,
+      table: localStorage.getItem("table"),
       orders: this.props.drink,
       totalAmount: this.state.count,
       paid: false,

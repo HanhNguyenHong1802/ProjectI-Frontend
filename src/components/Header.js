@@ -120,6 +120,11 @@ class Header extends Component {
                       </NavLink>
                     </NavItem>
                     <NavItem>
+                      <NavLink className="nav-link" to="/manageorders">
+                        Manage Order
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
                       <NavLink className="nav-link" to="/qrscan">
                         Manage QR
                       </NavLink>

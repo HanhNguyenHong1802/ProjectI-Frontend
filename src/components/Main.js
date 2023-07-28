@@ -37,6 +37,7 @@ import AboutUs from "./AboutUs";
 import Order from "./Order";
 import OrderComplete from "./OrderComplete";
 import QRScan from "./QRScan";
+import ManageOrders from "./ManageOrders";
 
 const mapStateToProps = (state) => {
   return {
@@ -193,7 +194,11 @@ class Main extends Component {
             component={() => <OrderComplete />}
           />
           <Route exact path="/qrscan" component={() => <QRScan />} />
-
+          <Route
+            exact
+            path="/manageorders"
+            component={() => <ManageOrders />}
+          />
           <Redirect to="/" />
         </Switch>
       </div>

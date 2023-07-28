@@ -36,7 +36,7 @@ class Order extends Component {
       let tmp = JSON.parse(localStorage.getItem("user"));
       this.setState((prevState) => ({
         items: response.filter(
-          (item) => item?.author?.username === tmp?.username && !item.paid
+          (item) => item?.author?.username === tmp?.username
         ),
         // items: response,
       }));
@@ -56,6 +56,7 @@ class Order extends Component {
               <OrderItem
                 item={item}
                 amount={order.totalAmount}
+                isPaid={order.paid}
                 table={order.table}
                 id={order._id}
               />

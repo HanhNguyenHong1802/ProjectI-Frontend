@@ -15,6 +15,7 @@ class OrderItem extends Component {
     super(props);
     this.state = {
       count: props.amount,
+      isDelete: false,
       isPaid: false,
     };
   }
@@ -24,7 +25,7 @@ class OrderItem extends Component {
   };
   decrement = (event) => {
     event.preventDefault();
-    if (this.state.count > 0)
+    if (this.state.count > 1)
       this.setState(
         { count: this.state.count - 1 },
 
@@ -61,13 +62,39 @@ class OrderItem extends Component {
       }
 
       response = await response.json();
+      this.setState({ isPaid: true });
+    } catch (err) {}
+  };
+  handleDeleteOrder = async (event) => {
+    event.preventDefault();
+    var bearer = "Bearer " + localStorage.getItem("token");
+
+    try {
+      var response = await fetch(baseUrl + "orders/" + this.props.id, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: bearer,
+        },
+      });
+
+      if (!response.ok) {
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
+        err.response = response;
+        throw err;
+      }
+
+      response = await response.json();
+      this.setState({ isDelete: true });
     } catch (err) {}
   };
   render() {
     const { item, table } = this.props;
     const { amount } = this.props;
     return (
-      <div className=" col-10 col-md-5 m-1" hidden={this.state.isPaid}>
+      <div className=" col-10 col-md-5 m-1" hidden={this.state.isDelete}>
         <Card>
           <CardImg src={item.image} className="card-img-top" />
           <CardBody>
@@ -90,8 +117,19 @@ class OrderItem extends Component {
               </button>
               <h2>{this.state.count}</h2>
             </FormGroup>
-            <Button color="success" onClick={(e) => this.handleOrder(e)}>
+            <Button
+              color={this.props.isPaid ? "secondary" : "success"}
+              onClick={(e) => this.handleOrder(e)}
+              disabled={this.props.isPaid}
+            >
               Order and pay
+            </Button>
+            <Button
+              color={!this.props.isPaid ? "success" : "secondary"}
+              onClick={(e) => this.handleDeleteOrder(e)}
+              disabled={this.props.isPaid}
+            >
+              Delete this order
             </Button>
           </CardBody>
         </Card>

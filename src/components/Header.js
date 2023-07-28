@@ -119,6 +119,11 @@ class Header extends Component {
                         Manage Feedbacks
                       </NavLink>
                     </NavItem>
+                    <NavItem>
+                      <NavLink className="nav-link" to="/qrscan">
+                        Manage QR
+                      </NavLink>
+                    </NavItem>
                   </>
                 ) : null}
                 {this.props.user.loggedIn && !this.props.user.user.isAdmin ? (

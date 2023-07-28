@@ -38,13 +38,9 @@ class Order extends Component {
         items: response.filter(
           (item) => item?.author?.username === tmp?.username
         ),
-        // items: response,
       }));
     } catch (err) {}
   };
-  // deleteOrders = async () => {
-
-  // }
   render() {
     const { items } = this.state;
     return (
@@ -63,6 +59,19 @@ class Order extends Component {
             );
           })}
         </div>
+        <Button
+          onClick={() => {
+            alert("Open camera to scan QR code");
+          }}
+          disabled={items.filter((item) => !item.paid).length > 0}
+          color={
+            items.filter((item) => !item.paid).length > 0
+              ? "secondary"
+              : "success"
+          }
+        >
+          Complete Order
+        </Button>
       </div>
     );
   }

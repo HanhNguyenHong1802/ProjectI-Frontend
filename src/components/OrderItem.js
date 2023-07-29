@@ -16,7 +16,7 @@ class OrderItem extends Component {
     this.state = {
       count: props.amount,
       isDelete: false,
-      isPaid: false,
+      isPaid: props.isPaid,
     };
   }
   increment = (event) => {
@@ -118,16 +118,16 @@ class OrderItem extends Component {
               <h2>{this.state.count}</h2>
             </FormGroup>
             <Button
-              color={this.props.isPaid ? "secondary" : "success"}
+              color={this.state.isPaid ? "secondary" : "success"}
               onClick={(e) => this.handleOrder(e)}
-              disabled={this.props.isPaid}
+              disabled={this.state.isPaid}
             >
               Order and pay
             </Button>
             <Button
-              color={!this.props.isPaid ? "success" : "secondary"}
+              color={!this.state.isPaid ? "success" : "secondary"}
               onClick={(e) => this.handleDeleteOrder(e)}
-              disabled={this.props.isPaid}
+              disabled={this.state.isPaid}
             >
               Delete this order
             </Button>

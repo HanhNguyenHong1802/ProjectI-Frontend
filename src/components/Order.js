@@ -6,7 +6,8 @@ class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [], // Array to store order items
+      items: [],
+      itemUpdate: false,
     };
   }
 

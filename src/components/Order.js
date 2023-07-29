@@ -109,10 +109,12 @@ class Order extends Component {
             this.handleCompleteOrder(e);
           }}
           disabled={
-            items.filter((item) => !item.paid || item?.complete).length > 0
+            items.filter((item) => !item.paid || item?.complete).length > 0 ||
+            items.length === 0
           }
           color={
-            items.filter((item) => !item.paid || item?.complete).length > 0
+            items.filter((item) => !item.paid || item?.complete).length > 0 ||
+            items.length === 0
               ? "secondary"
               : "success"
           }

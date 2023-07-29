@@ -36,11 +36,55 @@ class Order extends Component {
       let tmp = JSON.parse(localStorage.getItem("user"));
       this.setState((prevState) => ({
         items: response.filter(
-          (item) => item?.author?.username === tmp?.username
+          (item) => item?.author?.username === tmp?.username && !item?.complete
         ),
       }));
     } catch (err) {}
   };
+  handleOrder = async (event, order) => {
+    event.preventDefault();
+    var orderItem = {
+      author: localStorage.getItem("userid"),
+      table: order.table,
+      orders: order.drink,
+      totalAmount: order.count,
+      paid: true,
+      complete: true,
+    };
+    var bearer = "Bearer " + localStorage.getItem("token");
+
+    try {
+      var response = await fetch(baseUrl + "orders/" + order._id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: bearer,
+        },
+        body: JSON.stringify(orderItem),
+      });
+
+      if (!response.ok) {
+        var err = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
+        err.response = response;
+        throw err;
+      }
+
+      response = await response.json();
+    } catch (err) {}
+  };
+  handleCompleteOrder = async (event) => {
+    event.preventDefault();
+    Promise.all(
+      this.state.items.map((order) => {
+        return this.handleOrder(event, order);
+      })
+    ).then(() => {
+      this.fetchOrders();
+    });
+  };
+
   render() {
     const { items } = this.state;
     return (
@@ -60,12 +104,15 @@ class Order extends Component {
           })}
         </div>
         <Button
-          onClick={() => {
+          onClick={(e) => {
             alert("Open camera to scan QR code");
+            this.handleCompleteOrder(e);
           }}
-          disabled={items.filter((item) => !item.paid).length > 0}
+          disabled={
+            items.filter((item) => !item.paid || item?.complete).length > 0
+          }
           color={
-            items.filter((item) => !item.paid).length > 0
+            items.filter((item) => !item.paid || item?.complete).length > 0
               ? "secondary"
               : "success"
           }

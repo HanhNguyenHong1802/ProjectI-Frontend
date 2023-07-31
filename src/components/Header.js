@@ -100,20 +100,19 @@ class Header extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="nav-link" to="/aboutus">
-                    About Us
-                  </NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink className="nav-link" to="/menu">
                     Menu
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" to="/contactus">
-                    Contact Us
-                  </NavLink>
-                </NavItem>
+                {this.props.user.loggedIn && !this.props.user.user.isAdmin ? (
+                  <>
+                    <NavItem>
+                      <NavLink className="nav-link" to="/order">
+                        Order
+                      </NavLink>
+                    </NavItem>
+                  </>
+                ) : null}
                 {this.props.user.loggedIn && this.props.user.user.isAdmin ? (
                   <>
                     <NavItem>
@@ -138,15 +137,16 @@ class Header extends Component {
                     </NavItem>
                   </>
                 ) : null}
-                {this.props.user.loggedIn && !this.props.user.user.isAdmin ? (
-                  <>
-                    <NavItem>
-                      <NavLink className="nav-link" to="/order">
-                        Order
-                      </NavLink>
-                    </NavItem>
-                  </>
-                ) : null}
+                <NavItem>
+                  <NavLink className="nav-link" to="/aboutus">
+                    About Us
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className="nav-link" to="/contactus">
+                    Contact Us
+                  </NavLink>
+                </NavItem>
               </Nav>
               <Nav className="ml-auto" navbar>
                 <NavItem>

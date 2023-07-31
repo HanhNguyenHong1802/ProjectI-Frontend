@@ -195,12 +195,12 @@ class AddCommentForm extends Component {
 
   handleAddComment(event) {
     event.preventDefault();
-    this.toggleModal();
     this.props.postComment({
       content: this.content.value,
       rating: this.rating.value,
       drink: this.props.drink._id,
     });
+    this.toggleModal();
   }
 
   render() {

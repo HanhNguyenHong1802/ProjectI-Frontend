@@ -122,7 +122,7 @@ class OrderItem extends Component {
               onClick={(e) => this.handleOrder(e)}
               disabled={this.state.isPaid}
             >
-              Order and pay
+              Order
             </Button>
             <Button
               color={!this.state.isPaid ? "success" : "secondary"}

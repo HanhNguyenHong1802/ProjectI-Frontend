@@ -46,28 +46,6 @@ class QRScan extends Component {
           />
           <br />
           <br />
-          <input
-            type="text"
-            onChange={this.handleBackChange}
-            placeholder="Background color"
-          />
-          <br />
-          <br />
-          <input
-            type="text"
-            onChange={this.handleForeChange}
-            placeholder="Foreground color"
-          />
-          <br />
-          <br />
-          <input
-            type="number"
-            onChange={this.handleSizeChange}
-            placeholder="Size of Qr-code"
-          />
-          <p>Bàn số {localStorage && localStorage.getItem("table")}</p>
-          <br />
-          <br />
           <br />
           {value && (
             <QRCode

@@ -63,7 +63,7 @@ function ManageOrders(props) {
             <th>Table</th>
             <th>Total Amount</th>
             <th>Paid</th>
-            <th>Drink</th>
+            <th>Meal</th>
             <th>Price</th>
           </tr>
         </thead>

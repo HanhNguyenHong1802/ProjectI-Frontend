@@ -101,7 +101,6 @@ class OrderItem extends Component {
             <CardTitle>{item.name}</CardTitle>
             <CardText>{item.description}</CardText>
             <CardText>{item.price * this.state.count} VND</CardText>
-            <CardText>Bàn số :{table}</CardText>
             <FormGroup>
               <button
                 onClick={(e) => this.increment(e, amount)}

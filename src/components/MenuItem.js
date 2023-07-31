@@ -280,14 +280,13 @@ function RenderComments({ drink, comments, postComment, user, deleteComment }) {
       </ul>
       <br />
       <br />
-
-      <AddCommentForm drink={drink} postComment={postComment} user={user} />
       <OrderNowForm
         drink={drink}
         // getOrder={getOrder}
         // postOrder={postOrder}
         user={user}
       />
+      <AddCommentForm drink={drink} postComment={postComment} user={user} />
     </div>
   );
 }

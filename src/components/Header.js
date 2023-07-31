@@ -82,15 +82,30 @@ class Header extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar light expand="md">
-          <div className="container">
-            <div onClick={this.toggleNav}>
+        <Navbar light expand="md" style={{ width: "100%" }}>
+          <div className="container w-100">
+            <div
+              onClick={this.toggleNav}
+              className="w-100 d-flex justify-content-between"
+            >
               <img
-                src="/images/pngwing.com.png"
+                src="/images/kfc-logo.svg"
                 height="40"
                 width="41"
                 alt="Ristorante Con Fusion"
               />
+              <div
+                style={{
+                  alignSelf: "center",
+                  border: "1px solid gray",
+                  borderRadius: "50%",
+                  width: "25px",
+                  textAlign: "center",
+                  color: "gray",
+                }}
+              >
+                {localStorage.getItem("table")}
+              </div>
             </div>
             <Collapse isOpen={this.state.navIsOpen} navbar>
               <Nav navbar>
@@ -160,7 +175,7 @@ class Header extends Component {
                       </Button>
                       &nbsp;&nbsp;
                       <Button outline onClick={this.toggleSignupModal}>
-                        <span className="fa fa-sign-in fa-lg"></span> Signup
+                        <span className="fa fa-sign-in fa-lg"></span> Sign up
                         {this.props.user.loading ? (
                           <span className="fa fa-spinner fa-pulse fa-fw"></span>
                         ) : null}
@@ -275,7 +290,7 @@ class Header extends Component {
                 />
               </FormGroup>
               <Button type="submit" value="submit" color="success">
-                Signup
+                Sign up
               </Button>
             </Form>
           </ModalBody>

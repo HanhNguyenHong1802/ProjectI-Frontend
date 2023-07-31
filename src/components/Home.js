@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Card, CardImg, CardBody, CardTitle } from "reactstrap";
+import { Row, Card, CardImg, CardBody, CardTitle, Button } from "reactstrap";
 import Image from "react-bootstrap/Image";
 import { baseUrl } from "../shared/baseUrl";
 import { Link } from "react-router-dom";
@@ -20,6 +20,7 @@ function Home(props) {
       <div>
         <Row className=" justify-content-center">
           {/* <Image className="col-10 col-md-10 m-1" src= {baseUrl+"images/gacuon.jpg"} fluid/> */}
+
           <Carousel autoPlay infiniteLoop>
             <div>
               <Image
@@ -83,7 +84,6 @@ function Home(props) {
           </div>
         </Row>
       </div>
-      Bàn số :{localStorage.getItem("table")}
     </>
   );
 }

@@ -94,7 +94,7 @@ class OrderItem extends Component {
     const { item, table } = this.props;
     const { amount } = this.props;
     return (
-      <div className=" col-10 col-md-5 m-1" hidden={this.state.isDelete}>
+      <div className=" col-10 col-md-5 m-1" hidden={this.state.isPaid}>
         <Card>
           <CardImg src={item.image} className="card-img-top" />
           <CardBody>
@@ -116,18 +116,7 @@ class OrderItem extends Component {
               </button>
               <h2>{this.state.count}</h2>
             </FormGroup>
-            <Button
-              color={this.state.isPaid ? "secondary" : "success"}
-              onClick={(e) => this.handleOrder(e)}
-              disabled={this.state.isPaid}
-            >
-              Order
-            </Button>
-            <Button
-              color={!this.state.isPaid ? "success" : "secondary"}
-              onClick={(e) => this.handleDeleteOrder(e)}
-              disabled={this.state.isPaid}
-            >
+            <Button color="success" onClick={(e) => this.handleDeleteOrder(e)}>
               Delete this order
             </Button>
           </CardBody>

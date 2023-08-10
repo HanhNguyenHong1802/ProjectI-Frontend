@@ -51,7 +51,7 @@ function ManageOrders(props) {
         response[0].author._id.toString,
         localStorage.getItem("userid")
       );
-      setItems(response.filter((item) => item.complete === true));
+      setItems(response.filter((item) => item.paid === true));
     } catch (err) {}
   };
   return (

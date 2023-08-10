@@ -83,10 +83,14 @@ class Header extends Component {
     return (
       <React.Fragment>
         <Navbar light expand="md" style={{ width: "100%" }}>
-          <div className="container w-100">
+          <div
+            style={
+              window.innerWidth < 768 ? { width: "100%" } : { display: "flex" }
+            }
+          >
             <div
               onClick={this.toggleNav}
-              className="w-100 d-flex justify-content-between"
+              className="d-flex justify-content-between"
             >
               <img
                 src="/images/kfc-logo.svg"
@@ -95,6 +99,11 @@ class Header extends Component {
                 alt="Ristorante Con Fusion"
               />
               <div
+                hidden={
+                  !localStorage.getItem("table") ||
+                  !this.props.user.loggedIn ||
+                  (window.innerWidth < 768 && this.props.user.isAdmin)
+                }
                 style={{
                   alignSelf: "center",
                   border: "10px solid gray",
@@ -164,7 +173,19 @@ class Header extends Component {
                   </NavLink>
                 </NavItem>
               </Nav>
-              <Nav className="ml-auto" navbar>
+              <Nav
+                className="ml-auto"
+                navbar
+                style={
+                  window.innerWidth >= 768
+                    ? {
+                        position: "absolute",
+                        right: 0,
+                        top: 5,
+                      }
+                    : {}
+                }
+              >
                 <NavItem>
                   {!this.props.user.loggedIn ? (
                     <div>

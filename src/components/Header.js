@@ -97,11 +97,12 @@ class Header extends Component {
               <div
                 style={{
                   alignSelf: "center",
-                  border: "1px solid gray",
+                  border: "10px solid gray",
                   borderRadius: "50%",
                   width: "25px",
                   textAlign: "center",
                   color: "gray",
+                  
                 }}
               >
                 {localStorage.getItem("table")}

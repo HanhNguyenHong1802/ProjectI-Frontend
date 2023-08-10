@@ -26,12 +26,14 @@ function Home(props) {
               <Image
                 className="col-10 col-md-10 m-1"
                 src={baseUrl + "images/gacuon.jpg"}
+                style={{borderRadius:'30px'}}
               />
             </div>
             <div>
               <Image
                 className="col-10 col-md-10 m-1"
                 src={baseUrl + "images/buatruavuive.webp"}
+                style={{bo}}
               />
             </div>
             <div>
@@ -45,7 +47,7 @@ function Home(props) {
         <Row className="mx-5 justify-content-center">
           <div className="col-12 col-md m-1">
             <Link to="/menu">
-              <Card>
+              <Card >
                 <CardImg
                   src={baseUrl + "images/GA.jpg"}
                   className="card-img-top"
